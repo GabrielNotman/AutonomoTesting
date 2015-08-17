@@ -13,14 +13,16 @@ void setup()
   Serial1.begin(57600);
 
   //Switch on the VCC for the Bee socket
-  //Also keep DTR high
   digitalWrite(BEE_VCC, HIGH);
-  digitalWrite(DTR, HIGH);
 
   //Power switching is still being resolved 
-  gprsbee.init(Serial1, CTS, 0);  
+  gprsbee.init(Serial1, CTS, DTR);  
   gprsbee.setDiag(SerialUSB);
+  
+}
 
+void loop()
+{
   //Some send data
   char* data="Some payload data...";
 
@@ -38,8 +40,4 @@ void setup()
   for (int i=0; i<strlen(buffer); i++) {
     SerialUSB.print(buffer[i]);
   }
-}
-
-void loop()
-{
 } 

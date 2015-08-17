@@ -189,6 +189,7 @@ void GPRSbeeClass::onToggle()
 {
   if (!isOn()) {
     toggle();
+    Serial1.begin(57600);
   }
 }
 
@@ -205,6 +206,7 @@ void GPRSbeeClass::offToggle()
       // Should we care if it didn't?
     }
     // Wait a little longer to give the SIM900 time to really switch off.
+    Serial1.end();
     mydelay(500);
   }
 }
