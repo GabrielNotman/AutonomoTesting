@@ -18,7 +18,9 @@ void setup()
   //Power switching is still being resolved 
   gprsbee.init(Serial1, CTS, DTR);  
   gprsbee.setDiag(SerialUSB);
-  
+
+  //Comment out this line when used with GPRSbee Rev.4
+  gprsbee.setPowerSwitchedOnOff(true);
 }
 
 void loop()

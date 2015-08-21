@@ -1,4 +1,4 @@
-#define APN "everywhere"
+#define APN ""
 #define APN_USERNAME ""
 #define APN_PASSWORD ""
 
@@ -17,6 +17,9 @@ void setup()
 
   gprsbee.init(Serial1, CTS, DTR);  
   gprsbee.setDiag(SerialUSB);
+
+  //Comment out this line when used with GPRSbee Rev.4
+  gprsbee.setPowerSwitchedOnOff(true);
 }
 
 void loop()
