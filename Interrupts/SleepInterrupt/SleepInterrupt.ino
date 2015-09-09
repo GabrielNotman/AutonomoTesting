@@ -34,7 +34,9 @@ void loop()
 {
   //Disable USB
   USB->DEVICE.CTRLA.reg &= ~USB_CTRLA_ENABLE;
-
+  USB->DEVICE.CTRLB.reg |= USB_DEVICE_CTRLB_DETACH;
+  USB->DEVICE.INTFLAG.reg |= USB_DEVICE_INTFLAG_SUSPEND;
+ 
   //Enter sleep mode
   __WFI();
   
@@ -42,6 +44,8 @@ void loop()
   
   //Enable USB
   USB->DEVICE.CTRLA.reg |= USB_CTRLA_ENABLE;
+  USB->DEVICE.CTRLB.reg &= ~USB_DEVICE_CTRLB_DETACH;
+  USB->DEVICE.INTFLAG.reg &= ~USB_DEVICE_INTFLAG_SUSPEND;
 
   //Stay awake 10s
   delay(10000);
