@@ -17,7 +17,7 @@ void setup()
 
   //Set sleep mode
   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-
+  
   //Start delay of 10s to allow for new upload after reset
   delay(10000);
 }
@@ -32,10 +32,14 @@ void ISR()
 
 void loop() 
 {
+  //Uncomment this line to sleep immediately
+  //on exit from any ISR
+  //Can't do this in setup() as it will
+  //sleep when exiting from that method
+  //SCB->SCR |= SCB_SCR_SLEEPONEXIT_Msk;
+  
   //Disable USB
   USB->DEVICE.CTRLA.reg &= ~USB_CTRLA_ENABLE;
-  //USB->DEVICE.CTRLB.reg |= USB_DEVICE_CTRLB_DETACH;
-  //USB->DEVICE.INTFLAG.reg |= USB_DEVICE_INTFLAG_SUSPEND;
  
   //Enter sleep mode
   __WFI();
@@ -44,8 +48,6 @@ void loop()
   
   //Enable USB
   USB->DEVICE.CTRLA.reg |= USB_CTRLA_ENABLE;
-  //USB->DEVICE.CTRLB.reg &= ~USB_DEVICE_CTRLB_DETACH;
-  //USB->DEVICE.INTFLAG.reg &= ~USB_DEVICE_INTFLAG_SUSPEND;
 
   //Stay awake 10s
   delay(10000);
