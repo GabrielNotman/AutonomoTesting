@@ -7,14 +7,12 @@
 
 void setup() 
 {
-  //This isn't strictly necessary as default is INPUT
   pinMode(INT1, INPUT); 
   pinMode(13, OUTPUT);
 
   //Attach the interrupt and set the wake flag 
   attachInterrupt(INT1, ISR, HIGH);
-  EIC->WAKEUP.reg |= (1 << digitalPinToInterrupt(INT1));
-
+    
   //Set sleep mode
   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
   
